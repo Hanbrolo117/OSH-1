@@ -35,48 +35,41 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html">OS Homework</a>
+          <a class="navbar-brand" href="#">OS Homework</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
 
-<!-- navbar in the header -->
-<ul class="nav navbar-nav">
-	<li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-               Learn<b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-               <li><a href="introjava.html">Introductory Java</a></li>
-               <li><a href="introcpp.html">Introductory C++</a></li>
-               <li class="divider"></li>
-               <li><a href="#">Assembly and Computer Organization</a></li>
-	       <li><a href="#">Algorithms and Data Structures</a></li>
-	       <li><a href="#">Compilers and Programming Languages</a></li>
-               <li class="divider"></li>
-               <li><a href="#">Discrete Math Structures</a></li>
-	       <li><a href="#">Statistics and Probability</a></li>
-	       <li><a href="#">Linear Algebra</a></li>
-            </ul>
-         </li>
-         <li><a href="#">Collab</a></li>
-	 <li><a href="register.html">Register</a></li>
-         <li><a href="#">About Us</a></li>
-         
-</ul>
+	<!-- navbar in the header -->
+	<ul class="nav navbar-nav">
+		<li class="dropdown">
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			   Learn<b class="caret"></b>
+			</a>
+			<ul class="dropdown-menu">
+			   <li><a href="introjava.html">Introductory Java</a></li>
+			   <li><a href="#">Introductory C++</a></li>
+			   <li><a href="#">Digital Design Fundamentals</a></li>
+			   <li class="divider"></li>
+			   <li><a href="#">Assembly and Computer Organization</a></li>
+			<li><a href="#">Algorithms and Data Structures</a></li>
+			<li><a href="#">Compilers and Programming Languages</a></li>
+			   <li class="divider"></li>
+			   <li><a href="#">Discrete Math Structures</a></li>
+			<li><a href="#">Statistics and Probability</a></li>
+			<li><a href="#">Linear Algebra</a></li>
+			</ul>
+		</li>
+		<li><a href="#">Collab</a></li> <!--  class="active" will make it so that the current page label is seleced. -->
+		<!-- <li><a href="register.html">Practice</a></li> Coming Soon -->
+		<li><a href="#">About Us</a></li> 
+	</ul>
 
-
-          <form class="navbar-form navbar-right">
-            <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
-          </form>
-        </div><!--/.navbar-collapse -->
-      </div>
-    </nav>
+	  <form class="navbar-form navbar-right">
+		<a href="#"><button type="button" class="btn btn-success">My Account</button></a>
+	  </form>
+	</div><!--/.navbar-collapse -->
+  </div>
+</nav>
 
 
 
