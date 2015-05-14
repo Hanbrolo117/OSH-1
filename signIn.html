@@ -47,17 +47,17 @@
 	  $(document).ready(function(){
        $(".bg").interactive_bg();
        $("#btns").interactive_bg({
-         strength: 100,
+         strength: 25,
          scale: 1,
          contain: false,
-         wrapContent: false
+         wrapContent: true
        });
 		});
 
 		$(window).resize(function() {
 		  $(".wrapper > .ibg-bg").css({
 		    width: $(window).outerWidth(),
-		    height: $(window).outerHeight()
+		    height: $(window).outerHeight() + 50
 		  })
 		})
 
@@ -70,7 +70,7 @@
 	         								 left: 20px;
 	         								 top: 20px;
 	         								 width:90px;
-	         								 z-index: 5;" type="button" class="btn btn-lg btn-primary btn-block" type="submit">DEMO</button></a>
+											 z-index: 5;" type="button" class="btn btn-lg btn-primary btn-block" type="submit">DEMO</button></a>
 
 
 	<div style="position: fixed; z-index: -1; background-image: url(webback.png); top:0px; background-repeat: no-repeat; background-position:center top; width: 100%; height: 100%; "></div>
@@ -78,9 +78,9 @@
 	
 	
 	
-	<div class="wrapper bg" data-ibg-bg="webfront.png" style="overflow: hidden;  ">
+	<div class="wrapper bg" data-ibg-bg="webfront.png"  style="position: absolute; overflow: hidden; height: 100%; width: 100%; background-repeat: no-repeat; ">
 	
-	<div class=" ibg-bg" style=" width: 1118px; height: 303px; -webkit-transform: matrix(1, 0, 0, 1, 0, 0); transform: matrix(1, 0, 0, 1, 0, 0); -webkit-transition: transform 100ms linear;  transition: transform 100ms linear; background: url(webfront.png)  no-repeat;  "></div>
+	<div class=" ibg-bg" style=" width: 100%; height: 100%; -webkit-transform: matrix(1, 0, 0, 1, 0, 0); transform: matrix(1, 0, 0, 1, 0, 0); -webkit-transition: transform 100ms linear;  transition: transform 100ms linear; background: url(webfront.png)  no-repeat;  "></div>
 
 <div style="width:100%; min-width: 250px; height: 100%;">
     <div style="position: fixed;
@@ -90,6 +90,7 @@
 	    		left:33%;
 		    	float: right;
 		    	top:20%;
+				overflow: hidden;
 					" class="container">
 
       <form class="form-signin">
