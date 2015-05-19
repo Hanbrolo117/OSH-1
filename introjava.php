@@ -109,7 +109,6 @@
  		<!-- <div style="width:75%; margin-left:auto; margin-right:auto;">
 		<div class="row-fluid"> -->
 		<?php 
-			echo '<p>foo</p>';
 			include_once  'gridmethods.php';
 			populateGrid('TUTORIAL');
 		?>
