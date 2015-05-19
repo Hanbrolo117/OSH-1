@@ -1,3 +1,84 @@
+<?php
+	$currentfile = "IntroJava";
+
+	$servername = "localhost";
+	$username = "mrhilliker";
+	$password = "trombone1";
+
+	// Create connection
+	$conn = mysqli_connect($servername, $username, $password);
+
+	// Check connection
+	if (!$conn) {
+		die("Connection failed: " . mysqli_connect_error());
+	}
+	
+	$query_str = "SELECT ID, HREF, TYPE FROM ".$currentfile;
+	
+	class GridItem{
+		public $TYPE = "";
+		public $ID = "";
+		public $HREF = "";
+		public function __construct($name,$link,$type){
+			$this->TYPE = $type;
+			$this->ID = $name;
+			$this->HREF = $link;
+		}
+	}
+	
+	$gridObjects = array();
+	
+	$result = $conn->query($query_str);
+	
+	if ($result->num_rows > 0) {
+		// output data of each row
+		while($row = $result->fetch_assoc()) {
+			// process data from database
+			$gridObjects[] = new GridItem(row["ID"],row["HREF"],row["TYPE"]);
+		}
+	} else {
+		echo "0 results";
+	}
+	$conn->close();
+	
+	function populateGrid($tab)
+	{
+		global $gridObjects;
+		if (count($gridObjects) = 0) return;
+		$num_cols = 3;
+		$num_rows = count($gridObjects) / $num_cols;
+		$num_remd = count($gridObjects) % $num_cols;
+		$counter = 1;
+		//populate all complete rows
+		for($x=0; $x < $num_rows-1; $x++)
+		{
+			echo '<div style="width:75%; margin-left:auto; margin-right:auto;">
+			<div class="row-fluid">';
+			for($i=1; $i <= num_cols; $i++)
+			{
+				echo '<a href="#">';
+				if($tab = $gridObjects[$counter].TYPE)
+					echo '<div style="margin-bottom: 3%;" class="col-md-4"><div class="tab-item"><p>'.$gridObjects[$counter].'</p></div></div>';
+				echo '</a>';
+				$counter++;
+			}
+			echo '</div></div>';
+		}
+		//populate incomplete row
+		echo '<div style="width:75%; margin-left:auto; margin-right:auto;">
+			<div class="row-fluid">';
+		for($i=1; $i <= num_remd; $i++)
+		{
+			echo '<a href="#">';
+			
+			echo '</a>';
+			$counter++;
+		}
+		echo '</div></div>';
+	}
+	
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -102,118 +183,40 @@
 <!-- Tab Content -->
 <div class="container">
 <div id="my-tab-content" class="tab-content">
-            <div class="tab-pane active" id="tutorials">
-                <!-- <h1>Tutorials</h1>
-                <p>Tutorials will be here</p> -->
-				<p> <br /> </p>
- 		<div style="width:75%; margin-left:auto; margin-right:auto;">
-		<div class="row-fluid">
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 1</p></div></div>
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 2</p></div></div>
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 3</p></div></div>
+	<div class="tab-pane active" id="tutorials">
+		<!-- <h1>Tutorials</h1>
+		<p>Tutorials will be here</p> -->
+		<p> <br /> </p>
+ 		<!-- <div style="width:75%; margin-left:auto; margin-right:auto;">
+		<div class="row-fluid"> -->
+		<?php 
+			populateGrid();
+		?>
+    </div>
+	<div class="tab-pane" id="videos">
+		<!-- <h1>Videos</h1>
+		<p>Video content here</p> -->
+		<p> <br /> </p>
+		<?php 
+			populateGrid();
+		?>
+	</div>
+		<div class="tab-pane" id="walkthroughs">
+			<!-- <h1>Walkthroughs</h1>
+			<p>Walkthroughs content here</p> -->
+			<p> <br /> </p>
+			<?php 
+				populateGrid();
+			?>
 		</div>
-		
+		<div class="tab-pane" id="examples">
+			<!-- <h1>Examples</h1>
+			<p>Examples content here</p> -->
+			<p> <br /> </p>
+			<?php 
+				populateGrid();
+			?>
 		</div>
-		<div style="width:75%; margin-left:auto; margin-right:auto;">
-		<div class="row-fluid" >
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 4</p></div></div>
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 5</p></div></div>
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 6</p></div></div>
-		</div>
-		
-		</div>
-		<div style="width:75%; margin-left:auto; margin-right:auto;">
-		<div  class="row-fluid">
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 7</p></div></div>
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 8</p></div></div>
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 9</p></div></div>
-		</div>
-		</div>
-            </div>
-            <div class="tab-pane" id="videos">
-                <!-- <h1>Videos</h1>
-                <p>Video content here</p> -->
-				<p> <br /> </p>
-				<div style="width:75%; margin-left:auto; margin-right:auto;">
-		<div class="row-fluid">
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 1</p></div></div>
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 2</p></div></div>
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 3</p></div></div>
-		</div>
-		
-		</div>
-		<div style="width:75%; margin-left:auto; margin-right:auto;">
-		<div class="row-fluid" >
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 4</p></div></div>
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 5</p></div></div>
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 6</p></div></div>
-		</div>
-		
-		</div>
-		<div style="width:75%; margin-left:auto; margin-right:auto;">
-		<div  class="row-fluid">
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 7</p></div></div>
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 8</p></div></div>
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 9</p></div></div>
-		</div>
-		</div>
-            </div>
-            <div class="tab-pane" id="walkthroughs">
-                <!-- <h1>Walkthroughs</h1>
-                <p>Walkthroughs content here</p> -->
-				<p> <br /> </p>
-				<div style="width:75%; margin-left:auto; margin-right:auto;">
-		<div class="row-fluid">
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 1</p></div></div>
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 2</p></div></div>
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 3</p></div></div>
-		</div>
-		
-		</div>
-		<div style="width:75%; margin-left:auto; margin-right:auto;">
-		<div class="row-fluid" >
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 4</p></div></div>
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 5</p></div></div>
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 6</p></div></div>
-		</div>
-		
-		</div>
-		<div style="width:75%; margin-left:auto; margin-right:auto;">
-		<div  class="row-fluid">
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 7</p></div></div>
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 8</p></div></div>
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 9</p></div></div>
-		</div>
-		</div>
-            </div>
-            <div class="tab-pane" id="examples">
-                <!-- <h1>Examples</h1>
-                <p>Examples content here</p> -->
-				<p> <br /> </p>
-				<div style="width:75%; margin-left:auto; margin-right:auto;">
-		<div class="row-fluid">
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 1</p></div></div>
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 2</p></div></div>
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 3</p></div></div>
-		</div>
-		
-		</div>
-		<div style="width:75%; margin-left:auto; margin-right:auto;">
-		<div class="row-fluid" >
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 4</p></div></div>
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 5</p></div></div>
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 6</p></div></div>
-		</div>
-		
-		</div>
-		<div style="width:75%; margin-left:auto; margin-right:auto;">
-		<div  class="row-fluid">
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 7</p></div></div>
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 8</p></div></div>
-			<div style="margin-bottom: 3%;" class="col-md-4"> <div class="tab-item"><p>Item 9</p></div></div>
-		</div>
-		</div>
-            </div>
 </div>
 </div>
 
