@@ -72,7 +72,7 @@
 	//echo($password);
 	//echo($confirmPass);
 	//Some simple security from xss 
-	
+
 	function test_input($data){
 		$data = trim($data);
 		$data = stripcslashes($data);
