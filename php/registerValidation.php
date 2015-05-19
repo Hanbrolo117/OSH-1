@@ -1,4 +1,5 @@
 <?php
+	echo(phpversion());
 	//Initially set to a blank string
 	$email = $password = $confirmPass = "";
 	$emailERR = $passwordERR = $confirmPassERR = "";
@@ -21,6 +22,15 @@
 				unless of course you are C3-PO or something.";
 			}
 		}*/
+		echo("Test:");
+		echo("<br>");
+		echo($_POST["email"]);
+		echo("<br>");
+		echo($_POST["password"]);
+		echo("<br>");
+		echo($_POST["confirmPass"]);
+		
+		
 		
 		if(empty($_POST["email"])){
 			$emailERR = "how will we contact you!?";
@@ -41,10 +51,10 @@
 			if(empty($_POST["confirmPass"])){
 				$passwordERR = "face it, you are human #Mistakes.";
 			}else{
-				$name = test_input($_POST["name"]);
-				$confirmPass = crypt($confirmPass);
+				$confirmPass = test_input($_POST["confirmPass"]);
+				$hashpass = crypt($confirmPass);
 				
-				if(hash_equals($confirmPass, crypt($password, $confirmPass))){
+				if(password_verify($confirmPass, crypt($password,$hashpass))){
 					echo("<h2 style=\" color: green;\">Registration Complete!</h2>");
 					
 				//Database insertion (add user) code here
