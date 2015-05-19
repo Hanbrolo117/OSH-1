@@ -110,7 +110,7 @@
 		<div class="row-fluid"> -->
 		<?php 
 			echo '<p>foo</p>';
-			require 'gridmethods.php';
+			include_once  'gridmethods.php';
 			populateGrid('TUTORIAL');
 		?>
     </div>
@@ -119,7 +119,7 @@
 		<p>Video content here</p> -->
 		<p> <br /> </p>
 		<?php 
-			require 'gridmethods.php';
+			include_once  'gridmethods.php';
 			populateGrid('VIDEO');
 		?>
 	</div>
@@ -128,7 +128,7 @@
 		<p>Walkthroughs content here</p> -->
 		<p> <br /> </p>
 		<?php 
-			require 'gridmethods.php';
+			include_once  'gridmethods.php';
 			populateGrid('WALKTHROUGH');
 		?>
 	</div>
@@ -137,7 +137,7 @@
 		<p>Examples content here</p> -->
 		<p> <br /> </p>
 		<?php 
-			require 'gridmethods.php';
+			include_once  'gridmethods.php';
 			populateGrid('EXAMPLE');
 		?>
 	</div>
