@@ -1,8 +1,8 @@
 <?php
 
 	$servername = "localhost";
-	$dbUsername = "mrhilliker";
-	$dbPassword = "trombone1";
+	$dbUsername = "TFHStudios";
+	$dbPassword = "yodabyte";
 	$dbname = "UserAccounts";
 	//Creating connection
 	$conn = new mysqli($servername, $dbUsername, $dbPassword, $dbname);
@@ -65,7 +65,7 @@
             <span class=\"icon-bar\"></span>
             <span class=\"icon-bar\"></span>
           </button>
-          <a class=\"navbar-brand\" href=\"#\">OS Homework</a>
+          <a class=\"navbar-brand\" href=\"index.html\">OS Homework</a>
         </div>
         <div id=\"navbar\" class=\"navbar-collapse collapse\">
 
@@ -158,21 +158,82 @@
 					$sql = "INSERT INTO users (email, password) VALUES ('$email', '$encrypt')";
 					
 					if($conn->query($sql) === TRUE){
-						echo("<h2 style=\" color: green;\">Registration Complete!</h2>");
+						$mail = "";
+						$msg = "Greetings fellow Object! You have successfully signed up with OpenSourceHomework! Follow the link to start learning: www.opensourcehomework.com\n\nLogin Info:\n Email: $email\n Password: $password";
+						$sub = "Registration with Opensourcehomework";
+						$tfh = "From the TFH Studios team:";
+						
+						if( mail($email , $sub , $msg , $tfh) ){
+							$mail = "An email has been sent to you with your login information! If you did not receive it, go to your account page and make sure you entered your email correctly! (you can change it there if it is incorrect.) ";
+						}
+						else{
+							$mail = "An error occurred in sending an email to this address: $email .";
+						}
+						
+						echo("<!-- Jumbotron / Heading -->
+								<div class=\"container\">
+									<div class=\"jumbotron\">
+										<h1 style=\"margin-left:auto; margin-right:auto;  color: green;\">Registration Complete!</h1>
+										<h2>$mail</h2>
+
+									</div>
+								</div>"
+						);
+						
+						
 					}else{
-						echo("<h2 style=\" color: red;\" >ERROR: could not complete registration!</h2>");
+						echo("<!-- Jumbotron / Heading -->
+								<div class=\"container\">
+									<div class=\"jumbotron\">
+										<br>
+										<h1 style=\"margin-left:auto; margin-right:auto;  color: #4A99FF;\">Could not complete registration!</h1>
+										<h2>Unfortunately you could not connect to our servers database, please come back later and try again.</h2>
+									</div>
+								</div>"
+						);
 					}
 				}
 				else{
-					echo("<h2 style=\" color: red;\" >ERROR:passwords do not match!</h2>");
+					echo("<!-- Jumbotron / Heading -->
+								<div class=\"container\">
+									<div class=\"jumbotron\">
+									<br>
+										<h1 style=\"margin-left:auto; margin-right:auto;  color: #4A99FF;\">Could not complete registration!</h1>
+										<h2>Your passwords did not match, go back and re-enter matching passwords.</h2>
+									</div>
+								</div>"
+						);
 				}
 			}
 		}	
 		
 		}
 		else{
-			echo("<p>That email already exists!<p>");
+			echo("<!-- Jumbotron / Heading -->
+								<div class=\"container\">
+									<div class=\"jumbotron\">
+									<br>
+										<h1 style=\"margin-left:auto; margin-right:auto;  color: #4A99FF;\">Could not complete registration!</h1>
+										<h2>It appears that email already exists with an account.</h2>
+										<h2>You entered '<span style=\"color: blue;\">$email</span>' as your email, if this is yours try signing in <a href=\"http://www.opensourcehomework.com/signIn.html\">here</a>!\nIf not go back and re-enter your correct email in the register page. </h2>
+									</div>
+								</div>"
+						);
 		}
+		echo("<!-- Footer -->
+<hr>
+<div class=\"container\">
+<footer>
+   <p>&copy; TFH Studios, LLC. 2015.</p>
+</footer>
+</div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js\"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src=\"js/bootstrap.min.js\"></script>
+  </body>
+</html>");
 		$conn-> close();
 
 

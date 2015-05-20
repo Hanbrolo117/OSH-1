@@ -30,7 +30,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">OS Homework</a>
+          <a class="navbar-brand" href="index.html">OS Homework</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
 
@@ -96,10 +96,10 @@
 
 <!-- Registration Form -->
  <div style="width:30%; min-width:250px; margin-left:auto; margin-right:auto;">
-      <form class="form-signin" action="php/registerValidation.php" method="post">
+      <form class="form-signin" action="registerValidation.php" method="post">
         <h2 class="form-signin-heading">Register:</h2>
         
-	        <label for="inputEmail" class="sr-only">Email address</label>
+	        <label  for="inputEmail" class="sr-only">Email address</label>
         	<input type="email" id="inputEmail" name ="email" class="form-control" placeholder="Email address" required autofocus>
 
 			<label for="inputPassword" class="sr-only">Password</label>
