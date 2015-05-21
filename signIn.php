@@ -1,6 +1,14 @@
 
       <?php
+		session_start();
+		$validPassword = true;
+		$validEmail = true;
 
+		
+		if($_SESSION["email"] != null){
+			header('Location: index.php');
+		}
+		
 	if(isset($_POST["signin"])){
 	$servername = "localhost";
 	$dbUsername = "TFHStudios";
@@ -41,23 +49,20 @@
 	#echo($victory);
 	
 	if(password_verify($password, $victory)){
-		session_start();
 		$_SESSION["email"] = $email;
 		
 		header('Location: index.php');
 		#exit();
 	}
 	else{
+		$validPassword = false;
 
-		echo("<h3 style=\"color: #DF4F4F;\">Email or password is incorrect.</h3>");
-		#echo($value);
 	}
 		}
 		else{
-		echo("Account does not exist with that email.");
+		$validEmail = false;
 	}	
 	
-	#$link->close();
 }
 	//Some simple security from xss 
 	function test_input($data){
@@ -156,7 +161,7 @@
 
 
 <div style="z-index: 10; overflow: visible;">
-    <div style="position: absolute; width: 31%; margin-left: 33%; min-width: 250px; float: right; top:20%; " class="container">
+    <div style="position: absolute; width: 31%; margin-left: 33%; min-width: 250px; float: right; top:100px; padding-bottom: 50px; " class="container">
 
       <form class="form-signin"  method="post">
         <h2 style="text-align: center;" class="form-signin-heading">Open Source Homework</h2>
@@ -168,7 +173,15 @@
         
 				<label for="inputPassword" class="sr-only">Password</label>
 				<input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
-        
+        <?php
+	        if(!$validEmail){
+				echo(" <h3 style=\"color: #DF4F4F;\">No account exists with that email</h3>  ");
+	        }
+	        elseif(!$validPassword){
+				echo(" <h3 style=\"color: #DF4F4F;\">Invalid password</h3>  ");
+		        
+	        }
+        ?>
 			<h3  class="form-signin-heading">};</h3>
 
 			<div class="checkbox">

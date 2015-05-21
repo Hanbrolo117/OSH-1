@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	$email = $_SESSION["email"];
+
 	
 		if(isset($_POST["myAccount"])){
 		  	header('Location: myAccount.php');

@@ -12,6 +12,13 @@
 		
 		}
 
+		else if(isset($_POST["test"]))
+		{
+		echo ("<div class=\"source-code runnable\">
+        BootstrapDialog.alert(\'I want banana!\');
+    </div>");
+		}
+		
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +38,9 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+	    <!-- Bootstrap Dialog-->
+	<link href="css/bootstrap-dialog.min.css" rel="stylesheet" type="text/css" />
+    <script src="js/bootstrap-dialog.min.js"></script>
     <style>
 	.tab-item{background-color:#99CCFF; text-align:center;  border-radius:5px; radius:10px; height:40%; min-height:40px;}
 	.tab-item p{padding-top:5%; font-size:120%;}
@@ -89,7 +98,8 @@
 
 	  <form class="navbar-form navbar-right" method="post">
 		<?php echo "<span style =\"color: #5CB75C; padding-right:5px; \">".$_SESSION["email"]."</span>";?><button type="submit" name="myAccount" class="btn-sm btn-success">Account</button>
-<button type="submit" name="signOut" class=" btn-sm btn-success">SignOut</button>	  </form>
+<button type="submit" name="signOut" class=" btn-sm btn-success">SignOut</button>	  
+</form>
 
 	</div><!--/.navbar-collapse -->
   </div>
@@ -167,6 +177,15 @@
 </div>
 </div>
 
+
+
+
+
+<div class="container">
+<form  method="post">
+<button type="submit" name="test" class=" btn-sm btn-success" >Test</button>
+</form>
+</div>
 <!-- Footer -->
 <hr>
 <div class="container">
