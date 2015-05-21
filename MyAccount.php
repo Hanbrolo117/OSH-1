@@ -5,13 +5,13 @@
 		if(isset($_POST["myAccount"])){
 		  	header('Location: myAccount.php');
 		}
-		else if(isset($_POST["signOut"])){
+		elseif(isset($_POST["signOut"])){
 			session_unset();
 			session_destroy();
 			header('Location: signIn.php');
 		
 		}
-
+	
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,12 +32,11 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <style>
-	.tab-item{background-color:#99CCFF; text-align:center;  border-radius:5px; radius:10px; height:40%; min-height:40px;}
-	.tab-item p{padding-top:5%; font-size:120%;}
-    </style>
+    <!-- Custom styles for this template -->
+    <link href="carousel.css" rel="stylesheet">
   </head>
   <body>
+
 <style>
 	a:link{
 		text-decoration: none;
@@ -47,7 +46,6 @@
 	}
 	
 	</style>
-
 <!-- Sign in bar -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
@@ -86,7 +84,7 @@
 		<!-- <li><a href="register.html">Practice</a></li> Coming Soon -->
 		<li><a href="#">About Us</a></li> 
 	</ul>
-
+	  
 	  <form class="navbar-form navbar-right" method="post">
 		<?php echo "<span style =\"color: #5CB75C; padding-right:5px; \">".$_SESSION["email"]."</span>";?><button type="submit" name="myAccount" class="btn-sm btn-success">Account</button>
 <button type="submit" name="signOut" class=" btn-sm btn-success">SignOut</button>	  </form>
@@ -98,74 +96,11 @@
 
 
 
-
-
-<!-- Jumbotron / Heading -->
-<div class="container">
-  <div class="jumbotron">
-    <h1 style="margin-left:auto; margin-right:auto;">Basic Java</h1>
-    <p>This page will have links to the different types of Intro Java resources
-	that we will offer.  The navbar below will be used to organize them.
-    </p> 
-  </div>
-</div>
-
-
-<!-- Navigation menu -->
-<div class="container">                 
-  <ul class="nav nav-tabs nav-justified" role="tablist">
-    <li><a href="#tutorials" data-toggle="tab">Tutorials</a></li> <!-- class="active" will highlight it -->
-    <li><a href="#videos" data-toggle="tab">Videos</a></li>
-    <li><a href="#walkthroughs" data-toggle="tab">Walkthroughs</a></li>
-    <li><a href="#examples" data-toggle="tab">Examples</a></li>        
-  </ul>
-</div>
+<!--MyAccount content here -->
 
 
 
-<!-- Tab Content -->
-<div class="container">
-<div id="my-tab-content" class="tab-content">
-	<div class="tab-pane active" id="tutorials">
-		<!-- <h1>Tutorials</h1>
-		<p>Tutorials will be here</p> -->
-		<p> <br /> </p>
- 		<!-- <div style="width:75%; margin-left:auto; margin-right:auto;">
-		<div class="row-fluid"> -->
-		<?php 
-			include_once  'gridmethods.php';
-			populateGrid('TUTORIAL');
-		?>
-    </div>
-	<div class="tab-pane" id="videos">
-		<!-- <h1>Videos</h1>
-		<p>Video content here</p> -->
-		<p> <br /> </p>
-		<?php 
-			include_once  'gridmethods.php';
-			populateGrid('VIDEO');
-		?>
-	</div>
-	<div class="tab-pane" id="walkthroughs">
-		<!-- <h1>Walkthroughs</h1>
-		<p>Walkthroughs content here</p> -->
-		<p> <br /> </p>
-		<?php 
-			include_once  'gridmethods.php';
-			populateGrid('WALKTHROUGH');
-		?>
-	</div>
-	<div class="tab-pane" id="examples">
-		<!-- <h1>Examples</h1>
-		<p>Examples content here</p> -->
-		<p> <br /> </p>
-		<?php 
-			include_once  'gridmethods.php';
-			populateGrid('EXAMPLE');
-		?>
-	</div>
-</div>
-</div>
+
 
 <!-- Footer -->
 <hr>
@@ -179,5 +114,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+
   </body>
 </html>

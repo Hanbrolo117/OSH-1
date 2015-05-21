@@ -1,3 +1,18 @@
+<?php
+	session_start();
+	$email = $_SESSION["email"];
+	
+		if(isset($_POST["myAccount"])){
+		  	header('Location: myAccount.php');
+		}
+		elseif(isset($_POST["signOut"])){
+			session_unset();
+			session_destroy();
+			header('Location: signIn.php');
+		
+		}
+	
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -22,7 +37,15 @@
   </head>
   <body>
 
-
+<style>
+	a:link{
+		text-decoration: none;
+	}
+	a:visited{
+		text-decoration: none;
+	}
+	
+	</style>
 <!-- Sign in bar -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
@@ -33,7 +56,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">OS Homework</a>
+          <a class="navbar-brand" href="index.php">OS Homework</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
 
@@ -61,10 +84,11 @@
 		<!-- <li><a href="register.html">Practice</a></li> Coming Soon -->
 		<li><a href="#">About Us</a></li> 
 	</ul>
+	  
+	  <form class="navbar-form navbar-right" method="post">
+		<?php echo "<span style =\"color: #5CB75C; padding-right:5px; \">".$_SESSION["email"]."</span>";?><button type="submit" name="myAccount" class="btn-sm btn-success">Account</button>
+<button type="submit" name="signOut" class=" btn-sm btn-success">SignOut</button>	  </form>
 
-	  <form class="navbar-form navbar-right">
-		<a href="#"><button type="button" class="btn btn-success">My Account</button></a>
-	  </form>
 	</div><!--/.navbar-collapse -->
   </div>
 </nav>
@@ -77,6 +101,8 @@
 <!-- Jumbotron / Heading -->
 <div class="container">
   <div class="jumbotron">
+
+
     <h1 style="margin-left:auto; margin-right:auto;">Open Source Homework</h1>
     <p>This site uses Bootstrap
 	which is a framework developed by Twitter.  It allows us to develop the
@@ -96,7 +122,7 @@
 	<li><a target="_blank" href="http://getbootstrap.com/components/">Bootstrap Components</a></li>
 	<li><a target="_blank" href="http://getbootstrap.com/getting-started/#examples">Bootstrap Examples</a></li>
 	<li><a target="_blank" href="https://github.com/mhilliker/OSH">Github Repo</a></li>
-		<li><a target="_blank" href="signIn.html">Sign in-page link</a></li>
+		<li><a target="_blank" href="signIn.php">Sign in-page link</a></li>
 	</ul>
   </div>
 </div>
@@ -152,5 +178,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+
   </body>
 </html>

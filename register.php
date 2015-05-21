@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+print(
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -59,9 +59,7 @@
 		<li><a href="#">About Us</a></li> 
 	</ul>
 
-	  <form class="navbar-form navbar-right">
-		<a href="#"><button type="button" class="btn btn-success">My Account</button></a>
-	  </form>
+
 	</div><!--/.navbar-collapse -->
   </div>
 </nav>
