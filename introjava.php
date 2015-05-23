@@ -1,7 +1,8 @@
 <?php
 	session_start();
-	$email = $_SESSION["email"];
-	
+	$username = $_SESSION["email"];
+	#$status = $_SESSION["status"];
+
 		if(isset($_POST["myAccount"])){
 		  	header('Location: myAccount.php');
 		}
@@ -18,6 +19,10 @@
         BootstrapDialog.alert(\'I want banana!\');
     </div>");
 		}
+		
+		
+		
+		
 		
 ?>
 <!DOCTYPE html>
@@ -93,14 +98,13 @@
 		</li>
 		<li><a href="#">Collab</a></li> <!--  class="active" will make it so that the current page label is seleced. -->
 		<!-- <li><a href="register.html">Practice</a></li> Coming Soon -->
-		<li><a href="#">About Us</a></li> 
+		<?php if(strcasecmp($status,"dev")==0){ echo('<li><a href="developerConsole.php">Dev Console</a></li>');} ?>
 	</ul>
-
+	  
 	  <form class="navbar-form navbar-right" method="post">
-		<?php echo "<span style =\"color: #5CB75C; padding-right:5px; \">".$_SESSION["email"]."</span>";?><button type="submit" name="myAccount" class="btn-sm btn-success">Account</button>
-<button type="submit" name="signOut" class=" btn-sm btn-success">SignOut</button>	  
-</form>
-
+		<?php echo "<span style =\"color: #5CB75C; padding-right:5px; \">".$_SESSION["username"]."</span>";?><button type="submit" name="myAccount" class="btn-sm btn-success">Account</button>
+<button type="submit" name="signOut" class=" btn-sm btn-success">SignOut</button>
+	  </form>
 	</div><!--/.navbar-collapse -->
   </div>
 </nav>

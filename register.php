@@ -1,79 +1,15 @@
-<!DOCTYPE html>
-print(
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Open Source Homework Template</title>
-
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-
-<!-- Sign in bar -->
-<nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.html">OS Homework</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-
-	<!-- navbar in the header -->
-	<ul class="nav navbar-nav">
-		<li class="dropdown">
-			<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-			   Learn<b class="caret"></b>
-			</a>
-			<ul class="dropdown-menu">
-			   <li><a href="introjava.html">Introductory Java</a></li>
-			   <li><a href="#">Introductory C++</a></li>
-			   <li><a href="#">Digital Design Fundamentals</a></li>
-			   <li class="divider"></li>
-			   <li><a href="#">Assembly and Computer Organization</a></li>
-			<li><a href="#">Algorithms and Data Structures</a></li>
-			<li><a href="#">Compilers and Programming Languages</a></li>
-			   <li class="divider"></li>
-			   <li><a href="#">Discrete Math Structures</a></li>
-			<li><a href="#">Statistics and Probability</a></li>
-			<li><a href="#">Linear Algebra</a></li>
-			</ul>
-		</li>
-		<li><a href="#">Collab</a></li> <!--  class="active" will make it so that the current page label is seleced. -->
-		<!-- <li><a href="register.html">Practice</a></li> Coming Soon -->
-		<li><a href="#">About Us</a></li> 
-	</ul>
-
-
-	</div><!--/.navbar-collapse -->
-  </div>
-</nav>
-
+<?php
+	include_once("navBar.php");
+	generateNavBarRegister();
+?>
 
 
 
 <!-- Jumbotron / Heading -->
 <div class="container">
   <div class="jumbotron">
-    <h1 style="margin-left:auto; margin-right:auto;">Registration Page</h1>
-    <p>This page will have a place for people to register for an account here.
-	This jumbotron will be deleted in the final release.
-    </p> 
+    <h1 style="text-align: center;color: #5CB75C ">Registration Page</h1>
+    <p style="text-align: center;">Sign up now to start learning a bunch 'o' stuff!</p> 
   </div>
 </div>
 
@@ -95,8 +31,11 @@ print(
 <!-- Registration Form -->
  <div style="width:30%; min-width:250px; margin-left:auto; margin-right:auto;">
       <form class="form-signin" action="registerValidation.php" method="post">
-        <h2 class="form-signin-heading">Register:</h2>
+        <h2 class="form-signin-heading">User you = new User(</h2>
         
+	        <label  for="username" class="sr-only">Username</label>
+        	<input  type="text" id="username" name ="username" class="form-control" placeholder="Username" required autofocus>
+    
 	        <label  for="inputEmail" class="sr-only">Email address</label>
         	<input type="email" id="inputEmail" name ="email" class="form-control" placeholder="Email address" required autofocus>
 
@@ -111,26 +50,16 @@ print(
 					<input type="checkbox" value="remember-me"> Remember me
 				</label>
 			</div>
-			
+			<h2>);</h2>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Register Now</button>
       </form>
  </div>
 
 
 
-<!-- Footer -->
-<hr>
-<div class="container">
-<footer>
-   <p>&copy; TFH Studios, LLC. 2015.</p>
-</footer>
-</div>
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-  </body>
-</html>
+<?php
+	include_once("navBar.php");
+	generateFooter();
+?>
 
  

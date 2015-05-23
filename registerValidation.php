@@ -1,36 +1,7 @@
 <?php
 
-	$servername = "localhost";
-	$dbUsername = "TFHStudios";
-	$dbPassword = "yodabyte";
-	$dbname = "UserAccounts";
-	//Creating connection
-	$conn = new mysqli($servername, $dbUsername, $dbPassword, $dbname);
-
-	//Checking connection
-	if($conn->connect_error){
-		die("Connection failed: " . $conn->connection_error);
-	}
-
-	//Initially set to a blank string
-	$email = $password = $confirmPass = "";
-	$emailERR = $passwordERR = $confirmPassERR = "";
-		
-	
-
-		//Debugging stuff
-		/*
-		echo("Test:");
-		echo("<br>");
-		echo($_POST["email"]);
-		echo("<br>");
-		echo($_POST["password"]);
-		echo("<br>");
-		echo($_POST["confirmPass"]);
-		*/
-
-				 				
-		echo("<!DOCTYPE html>
+#Generate General Dashboard
+/*	echo("<!DOCTYPE html>
 <html lang=\"en\">
   <head>
     <meta charset=\"utf-8\">
@@ -65,7 +36,7 @@
             <span class=\"icon-bar\"></span>
             <span class=\"icon-bar\"></span>
           </button>
-          <a class=\"navbar-brand\" href=\"index.html\">OS Homework</a>
+          <a class=\"navbar-brand\" href=\"index.php\">OS Homework</a>
         </div>
         <div id=\"navbar\" class=\"navbar-collapse collapse\">
 
@@ -95,82 +66,163 @@
 	</ul>
 
 	  <form class=\"navbar-form navbar-right\">
-		<a href=\"#\"><button type=\"button\" class=\"btn btn-success\">My Account</button></a>
-	  </form>
+  </form>
 	</div><!--/.navbar-collapse -->
   </div>
 </nav>");
-  
-  													
-		if(empty($_POST["email"])){
-			$emailERR = "how will we contact you!?";
-		}else{
+	#-------------------
+	*/
+	
+		
+
+	#Database Connect
+		$servername = "localhost";
+		$dbUsername = "TFHStudios";
+		$dbPassword = "yodabyte";
+		$dbname = "UserAccounts";
+	
+		//Creating connection
+		$conn = new mysqli($servername, $dbUsername, $dbPassword, $dbname);
+
+		//Checking connection
+		if($conn->connect_error){
+			die("Connection failed: " . $conn->connection_error);
+		}
+
+		$link = mysql_connect($servername, $dbUsername, $dbPassword);
+		mysql_select_db($dbname, $link);
+	#-------------------
+	
+	
+	#Variable setup
+		$registerMessage = "";
+		$email = "";
+		$password = "";
+		$confirmPass = "";
+		$username = "";
+		$emailERR = $passwordERR = $confirmPassERR = "";
+		//If username is valid and not in database already
+		$isUsernameValid = true;	
+		//If email is valid and not in database already
+		$isEmailValid = true;	
+	#-------------------	
+	
+
+	
+	
+	#Grab and Validate Username	
+		$username = test_input($_POST["username"]);						
+		//Select the usernames from the user table where the username is equal to the one entered by user
+		$queryR = "SELECT username FROM users WHERE username = '$username'";
+		$resultUsername =  mysql_query($queryR, $link);
+		$num_rowsUsername = mysql_num_rows($resultUsername);
+		//echo($num_rows);
+		//If the query comes up with (should only be at most one because of this very check ) # of rows greater than 0
+		//that email already exists in the database.
+		if($num_rowsUsername > 0){
+			//prevent code from adding user to database.
+			$isUsernameValid = false;
+			$isEmailValid = false;
+			//Instead (the else) warn them this email already exists.
+			$emailERR = "";
+		}
+		else{
+			$isUsernameValid = true;
+		}
+		#-------------------	
+
+
+
+		#If username is original, check email with database.
 			$email = test_input($_POST["email"]);
-			$sqlEmail = "'".$email."'"; 
 			if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
 				$emailERR = "That doesn't look right, make sure you enter a valid email address.";
-			}
-				
-			
-		}
-		
-		//If email is valid and not in database
-		$isValid = true;
-		
-		//Select the emails from the user table where the email is equal to the one entered by user
-				$link = mysql_connect($servername, $dbUsername, $dbPassword);
-				mysql_select_db($dbname, $link);
-				$sql0 = "SELECT email FROM users WHERE email = '$email'";
-				$result =  mysql_query($sql0, $link);
-				$num_rows = mysql_num_rows($result);
-				//echo($num_rows);
-				//If the query comes up with (should only be at most one because of this very check ) # of rows greater than 0
-				//that email already exists in the database.
-				if($num_rows > 0){
-					//prevent code from adding user to database.
-					$isValid = false;
-					//Instead (the else) warn them this email already exists.
-					$emailERR = "";
-				}
-				else{
-					$isValid = true;
-				}
-		
-		//If email is original, add user to database.
-		if($isValid == true){
-		
-		if(empty($_POST["password"])){
-			$passwordERR = "do you even want security?";
-		}else{
-			
-			$password = test_input($_POST["password"]);
-			
-			if(empty($_POST["confirmPass"])){
-				$passwordERR = "face it, you are human #Mistakes.";
 			}else{
+			
+					$sqlEmail = "SELECT email FROM users WHERE email = '$email'";
+					$resultEmail =  mysql_query($sqlEmail, $link);
+					$num_rowsEmail = mysql_num_rows($resultEmail);
+					//echo($num_rows);
+					//If the query comes up with (should only be at most one because of this very check ) # of rows greater than 0
+					//that email already exists in the database.
+					if($num_rowsEmail > 0){
+						//prevent code from adding user to database.
+						$isEmailValid = false;
+						//Instead (the else) warn them this email already exists.
+						$emailERR = "";
+					}
+					else{
+						$isValid = true;
+					}
+				}
+				if(!$isUsernameValid){
+					$registerMessage = "<div class=\"container\">
+						<div class=\"jumbotron\">
+							<br>
+								<h1 style=\"margin-left:auto; margin-right:auto;  color: #4A99FF;\">Could not complete registration!</h1>
+								<h2>It appears that username already exists with an account.</h2>
+								<h2>You entered '<span style=\"color: blue;\">$username</span>' as your username, if this is yours try signing in <a href=\"http://www.opensourcehomework.com/signIn.html\">here</a>!\nIf not go back and choose another email in the register page. </h2>
+						</div>
+					</div>
+					";
+		
+				}
+				
+		#-------------------	
+	
+	
+	
+		#If email is also valid create user, send email confirmation
+		
+			if($isEmailValid == true and $isUsernameValid == true){
+			
+				#Get password and password Confirm
+				$password = test_input($_POST["password"]);
 				$confirmPass = test_input($_POST["confirmPass"]);
+				#-------------------	
+
+				#Encrypt password
 				$hashpass = crypt($confirmPass);
-				//this($encrypt) is saved and when users sign in it will be checked by: 
-				//siginPass = crypt($signPass); if(siginPass == $encrypt(from the database of course)){ sign user in }
-				$encrypt = crypt($password,$hashpass);
+				$encrypt = crypt($password, $hashpass);
+				#-------------------	
+
+				
 				if(password_verify($confirmPass, $encrypt)){
-					
-					$sql = "INSERT INTO users (email, password) VALUES ('$email', '$encrypt')";
-					
-					if($conn->query($sql) === TRUE){
+					$sqlCreate = "INSERT INTO users (email, password, status, username) VALUES ('".$email."', '".$encrypt."', 'silver', '".$username."')";
+		
+
+					$querySuccess =	mysql_query($sqlCreate);
+
+					if($querySuccess){
+						
+						
+						#Start user session
+						session_start();
+						$_SESSION["username"] = $username;
+						$_SESSION["email"] = $email;
+						$_SESSION["status"] = "silver";
+						#-------------------	
+
+
+						#Email confirmation Variable Setup
 						$mail = "";
-						$msg = "Greetings fellow Object! You have successfully signed up with OpenSourceHomework! Follow the link to start learning: www.opensourcehomework.com\n\nLogin Info:\n Email: $email\n Password: $password";
+						$msg = "Greetings fellow Object! You have successfully signed up with OpenSourceHomework! Follow the link to start learning: www.opensourcehomework.com\n\nLogin Info:\n Username: $username\n Email: $email\n Password: $password\n Account Status: Silver";
 						$sub = "Registration with Opensourcehomework";
 						$tfh = "From the TFH Studios team:";
-						
+						#-------------------	
+
+						#Attempt Email confirmation
 						if( mail($email , $sub , $msg , $tfh) ){
 							$mail = "An email has been sent to you with your login information! If you did not receive it, go to your account page and make sure you entered your email correctly! (you can change it there if it is incorrect.) ";
 						}
 						else{
 							$mail = "An error occurred in sending an email to this address: $email .";
-						}
-						
-						echo("<!-- Jumbotron / Heading -->
+						}								
+						#-------------------	
+
+
+						#Inform User Registration is Complete or if there was an error in email confirmation
+					$registerMessage = "<!-- Jumbotron / Heading -->
 								<div class=\"container\">
 									<div class=\"jumbotron\">
 										<h1 style=\"margin-left:auto; margin-right:auto;  color: green;\">Registration Complete!</h1>
@@ -178,11 +230,13 @@
 
 									</div>
 								</div>"
-						);
+						;
+						#-------------------	
+
 						
-						
-					}else{
-						echo("<!-- Jumbotron / Heading -->
+					}//END of if $sqlCreate=T
+					else{
+					$registerMessage = "<!-- Jumbotron / Heading -->
 								<div class=\"container\">
 									<div class=\"jumbotron\">
 										<br>
@@ -190,11 +244,13 @@
 										<h2>Unfortunately you could not connect to our servers database, please come back later and try again.</h2>
 									</div>
 								</div>"
-						);
+						;
+
 					}
-				}
+					
+				}//END of if passwordVerify=T
 				else{
-					echo("<!-- Jumbotron / Heading -->
+					$registerMessage = "<!-- Jumbotron / Heading -->
 								<div class=\"container\">
 									<div class=\"jumbotron\">
 									<br>
@@ -202,14 +258,12 @@
 										<h2>Your passwords did not match, go back and re-enter matching passwords.</h2>
 									</div>
 								</div>"
-						);
+						;
 				}
-			}
-		}	
-		
-		}
-		else{
-			echo("<!-- Jumbotron / Heading -->
+			
+			}//END of if EmailValid=T
+			else{
+					$registerMessage = "<!-- Jumbotron / Heading -->
 								<div class=\"container\">
 									<div class=\"jumbotron\">
 									<br>
@@ -218,26 +272,22 @@
 										<h2>You entered '<span style=\"color: blue;\">$email</span>' as your email, if this is yours try signing in <a href=\"http://www.opensourcehomework.com/signIn.html\">here</a>!\nIf not go back and re-enter your correct email in the register page. </h2>
 									</div>
 								</div>"
-						);
-		}
-		echo("<!-- Footer -->
-<hr>
-<div class=\"container\">
-<footer>
-   <p>&copy; TFH Studios, LLC. 2015.</p>
-</footer>
-</div>
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js\"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src=\"js/bootstrap.min.js\"></script>
-  </body>
-</html>");
-		$conn-> close();
+						;
+			}
+		
+		#-------------------	
 
 
-
+mysql_close($link);
+	
+	include_once("navBar.php");
+		generateNavBar();
+		echo($registerMessage);
+	include_once("navBar.php");
+		generateFooter();
+	
+	
+	
 	//Some simple security from xss 
 	function test_input($data){
 		$data = trim($data);
@@ -245,5 +295,4 @@
 		$data = htmlspecialchars($data);
 		return $data;
 	}
-	?>
-	
+?>
